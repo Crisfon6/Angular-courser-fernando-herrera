@@ -1,0 +1,64 @@
+<div class="text-layout">
+    <h1>Uncommon Pipes</h1>
+    <p>
+        Pipes included by Angular- Used from angular common
+    </p>
+</div>
+<div class="grid">
+    <div class="p-col p-md-6">
+        <p-fieldset legend="i18nSelect Pipe" [toggleable]="true">
+            Saludos {{name}} es un placer {{ gender | i18nSelect: invitationMap}}
+            <br>
+            <button pButton label="Change client" (click)="changeClient()" [disabled]="!clients.length" class="p-button-danger">
+
+            </button>
+        </p-fieldset>
+    </div>
+    <div class="p-col p-md-6">
+        <p-fieldset legend="i18nPlural Pipe" [toggleable]="true">
+            Actualmente {{clients.length | i18nPlural : clientsMap}} esperando
+            <br>
+            <button pButton label="Delete client" (click)="deleteClient()" [disabled]="!clients.length">
+
+            </button>
+        </p-fieldset>
+    </div>
+    <div class="p-col p-md-6">
+        <p-fieldset legend="Slice Pipe" [toggleable]="true">
+            <b>original</b>
+            <br>
+            <pre>{{clients }}</pre>
+            <b>slice:1:2</b>
+            <pre>{{clients | slice:1:2 }}</pre>
+
+
+        </p-fieldset>
+    </div>
+    <div class="p-col p-md-6">
+        <p-fieldset legend="Keyvalue Pipe" [toggleable]="true">
+            <ul>
+                <li *ngFor="let item of person | keyvalue">
+                    <p>{{item.key |titlecase}} : {{item.value }}</p>
+                </li>
+            </ul>
+        </p-fieldset>
+    </div>
+    <div class="p-col p-md-6">
+        <p-fieldset legend="Json Pipe" [toggleable]="true">
+            <pre>
+                {{heroes | json}}
+            </pre>
+        </p-fieldset>
+    </div>
+    <div class="p-col p-md-6">
+        <p-fieldset legend="Async Pipe" [toggleable]="true">
+            <pre>
+                    {{myObservable | async}}
+                </pre>
+            <pre *ngIf="!(valuePromise | async)">Loading...</pre>
+            <pre>
+                    {{valuePromise | async}}
+                </pre>
+        </p-fieldset>
+    </div>
+</div>

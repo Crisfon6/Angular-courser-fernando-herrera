@@ -1,0 +1,80 @@
+<div class="text-layout">
+    <h1>Basics Pipes</h1>
+    <p>
+        Pipes included in the common module
+    </p>
+
+</div>
+<h3>Texts</h3>
+<div class="grid">
+    <div class="col-4">
+        <p-card header="Uppercase" [subheader]="lowerName | uppercase" [style]="{'width': '25rem', 'margin-bottom': '2em'}">
+            {{lowerName}}
+        </p-card>
+    </div>
+    <div class="col-4">
+        <p-card header="Lowercase" [subheader]="upperName | lowercase" [style]="{'width': '25rem', 'margin-bottom': '2em'}">
+            {{upperName}}
+        </p-card>
+    </div>
+    <div class="col-4">
+        <p-card header="Titlecase" [subheader]="fullName | titlecase" [style]="{'width': '25rem', 'margin-bottom': '2em'}">
+            {{fullName}}
+        </p-card>
+    </div>
+</div>
+
+<hr>
+<h3>Dates</h3>
+<div class="grid">
+    <div class="col-6">
+        <p-card [style]="{'width': '25rem', 'margin-bottom': '2em'}">
+            <ul>
+                <li>Date</li>
+                <li>Date | date </li>
+                <li>Date | date: 'short'</li>
+                <li>Date | date: 'long'</li>
+                <li>Date | date:'yyy G YYYY MMM | L w | W | dd | E | EEEE | c| ccc| cccc | a | aa | aaaaa | h | H : m | : mm | s | ss z'</li>
+                <li>Date | date:'EEEE dd MMMM yyyy'</li>
+            </ul>
+            <hr>
+            <ul>
+                <li>
+                    date |date: 'long':'GMT-6'
+                </li>
+                <li>
+                    date |date: 'long':'GMT-4'
+                </li>
+                <li>
+                    date |date: 'long':'':'fr' </li>
+            </ul>
+        </p-card>
+    </div>
+    <div class="col-6">
+        <p-card [style]="{'width': '25rem', 'margin-bottom': '2em'}">
+            <ul>
+                <li>{{date}}</li>
+                <li>{{date |date}}</li>
+                <li>{{date |date: 'short'}}</li>
+                <li>{{date |date: 'long'}}</li>
+                <li>{{date |date: 'yyy G YYYY MMM | L w | W | dd | E | EEEE | c| ccc| cccc | a | aa | aaaaa | h | H : m | : mm | s | ss z'}}
+                </li>
+                <li>{{date |date: 'EEEE dd MMMM yyyy'}}</li>
+            </ul>
+            <hr>
+            <ul>
+                <li>
+                    {{date |date: 'long':'GMT-6'}}
+                </li>
+                <li>
+                    {{date |date: 'long':'GMT-4'}}
+                </li>
+                <li>
+                    {{date |date: 'long':'':'fr'}}
+                </li>
+            </ul>
+        </p-card>
+    </div>
+
+
+</div>

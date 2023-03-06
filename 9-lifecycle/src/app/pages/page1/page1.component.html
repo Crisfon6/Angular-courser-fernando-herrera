@@ -1,0 +1,9 @@
+<h3>Seconds : {{seconds}}</h3>
+<input type="text" [(ngModel)]="name">
+
+ <button (click)="save()" >
+    Click
+</button>
+
+<br><br>
+<app-show-name [name]="name"></app-show-name>

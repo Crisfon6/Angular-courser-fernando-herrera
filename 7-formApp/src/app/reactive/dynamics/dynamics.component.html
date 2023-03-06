@@ -1,0 +1,64 @@
+<h2>Reactives: <small>Dynamics</small></h2>
+<hr>
+<form autocomplete="off" [formGroup]="myForm" (ngSubmit)="save()">
+    <!-- name -->
+    <div class="mb-3 row">
+        <label class="col-sm-3 col-form-label">Name</label>
+        <div class="col-sm-9">
+            <input type="text" class="form-control" placeholder="Person name" name="name" formControlName="name">
+            <span class="form-text text-danger" *ngIf="nameError('name')">The name is mandatory
+            </span>
+        </div>
+    </div>
+
+
+    <!-- name -->
+    <div class="mb-3 row">
+        <label class="col-sm-3 col-form-label">Add</label>
+        <div class="col-sm-9">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Favorite" name="newGame" [formControl]="newFavorite" (keyup.enter)="addFavorite()">
+                <button class="btn btn-outline-primary" type="button" (click)="addFavorite()">Add</button>
+            </div>
+
+        </div>
+    </div>
+    <div class="mb-3 row">
+        <label class="col-sm-3 col-form-label">Favorites</label>
+        <div class="col-sm-9" formArrayName="favorites">
+            <div class="input-group mb-1" *ngFor="let favorite of favorites.controls;let i =index">
+                <input type="text" class="form-control " [formControlName]="i">
+                <button class="btn btn-outline-danger" type="button" (click)="removeFavorite(i)">Remove</button>
+            </div>
+
+
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <button type="submit" class="btn btn-primary float-end">
+                Save!
+            </button>
+        </div>
+    </div>
+</form>
+<span>
+    <span>Valid</span>
+<pre>
+        {{myForm.valid}}
+    </pre>
+<br>
+<span>
+        Value
+    </span>
+<pre>
+        {{myForm.value |json }}
+    </pre>
+<span>
+        new fav
+    </span>
+<pre>
+    {{newFavorite.value }}
+</pre>
+</span>

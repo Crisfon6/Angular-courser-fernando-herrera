@@ -1,0 +1,30 @@
+<div class="animate__animated animate__fadeIn animate__faster">
+    <h2>By country</h2>
+    <hr>
+    <div class="row">
+        <div class="col">
+            <app-country-input (onEnter)="search($event)" (onDebounce)="suggest($event)" placeholder="Search by country">
+            </app-country-input>
+        </div>
+    </div>
+    <ul class="list-group" *ngIf="showSuggestion">
+        <li class="list-group-item list-group-item-action" *ngFor="let country of suggestion">
+            <a [routerLink]="['/country',country.alpha2Code]">{{country.name}}</a>
+
+        </li>
+        <li class="list-group-item list-group-item-action" (click)="searchSuggestion(mean)">
+            <a> Search {{mean}}</a>
+
+        </li>
+    </ul>
+    <hr>
+</div>
+<div class="alert alert-danger" *ngIf="existError">
+    No found images countries with: {{mean}}
+</div>
+
+<div class="row" *ngIf="countries.length > 0">
+    <div class="col">
+        <app-country-table [data]="countries"></app-country-table>
+    </div>
+</div>

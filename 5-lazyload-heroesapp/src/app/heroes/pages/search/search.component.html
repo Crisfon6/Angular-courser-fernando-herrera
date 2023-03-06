@@ -1,0 +1,25 @@
+<div fxLayout="column">
+    <div style="margin-bottom: 10px;">
+        <h1>Hero browser</h1>
+        <mat-divider></mat-divider>
+
+    </div>
+    <div fxLayout="column">
+        <!-- <form [formGroup]="mean"> -->
+        <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Search hero...</mat-label>
+            <input type="text" placeholder="Search..." aria-label="" matInput [(ngModel)]="meanString" [matAutocomplete]="auto" (input)="searching()">
+            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" (optionSelected)="selectedOption($event)">
+                <mat-option *ngFor="let hero of heros" [value]="hero">
+                    {{hero.superhero}}
+                </mat-option>
+                <mat-option *ngIf="heros.length===0 && meanString!==''" value="">
+                    No exist hero by the term <strong>{{meanString}}</strong>
+                </mat-option>
+            </mat-autocomplete>
+        </mat-form-field>
+        <!-- </form> -->
+
+    </div>
+    <app-hero-card [hero]="heroSelected"></app-hero-card>
+</div>

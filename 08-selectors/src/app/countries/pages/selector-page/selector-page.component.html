@@ -1,0 +1,65 @@
+<h1 class="mt-5">Selector</h1>
+<hr>
+
+<form [formGroup]="myForm" (ngSubmit)="submit()">
+    <div class="row mb-3">
+        <div class="col">
+            <label class="form-label">Continent</label>
+            <select name="continent" id="continent" class="form-control" formControlName="region">
+                <option value="">-- Select continent ---</option>
+                <option [value]="region" *ngFor="let region of regions;let i =index">
+                    {{region
+                    | lowercase}}</option>
+
+            </select>
+        </div>
+    </div>
+    <div class="row mb-3" *ngIf="countries.length>0">
+        <div class="col">
+            <label class="form-label">Country</label>
+            <select name="country" id="country" class="form-control" formControlName="country">
+                <option value="">-- Select country ---</option>
+                <option [value]="country.cca3" *ngFor="let country of countries;let i =index">
+                    {{country.flag}}
+                    {{country.cca3
+                    }} | {{country.name.official}}
+                </option>
+
+            </select>
+        </div>
+    </div>
+    <div class="row mb-3" *ngIf="borders && borders.length>0">
+        <div class="col">
+            <label class="form-label">Borders <span *ngIf="country">{{country.flag}}</span></label>
+            <select name="country" id="country" class="form-control" formControlName="border">
+                <option value="">-- Select border ---</option>
+                <option [value]="country.cca3" *ngFor="let country of borders;let i =index">
+                    {{country.flag}}
+                    {{country.cca3
+                    }} | {{country.name.official}}
+                </option>
+
+            </select>
+        </div>
+    </div>
+    <div class="row" *ngIf="loading">
+        <div class="col">
+            <div class="alert alert-primary">
+                Loding...
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <button class="btn btn-primary float-end" type="submit">Save!</button>
+        </div>
+    </div>
+</form>
+
+
+<h3>My form</h3>
+<pre>Valid: {{myForm.valid}}</pre>
+<pre>Value : {{myForm.value | json}}</pre>
+<pre>Borders: 
+    {{borders |json}}
+</pre>

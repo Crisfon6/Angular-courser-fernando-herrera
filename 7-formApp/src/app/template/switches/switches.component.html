@@ -1,0 +1,54 @@
+<h2>Templates: <span>Switches</span></h2>
+<hr>
+
+
+<form #myForm="ngForm">
+    <!-- radios -->
+    <div class="row mb-3">
+        <label for="gender" class="col-sm-3 col-form-label">Gender</label>
+        <div class="col-sm-9">
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="radioGender" id="male" value="M" [(ngModel)]="person.gender" required>
+                <label for="male" class="form-check-label">
+                    Male
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="radioGender" id="female" value="F" [(ngModel)]="person.gender" required>
+                <label for="female" class="form-check-label">
+                    Female
+                </label>
+            </div>
+        </div>
+    </div>
+    <!-- switch -->
+    <div class="row mb-3">
+        <label for="gender" class="col-sm-3 col-form-label">Notifications</label>
+        <div class="col-sm-9">
+            <div class="form-check form-switch">
+                <input type="checkbox" id="firstSwitch" class="form-check-input" [(ngModel)]="person.notifications" name="notifications">
+                <label for="firstSwitch" class="form-check-label">Allow send notifications</label>
+            </div>
+        </div>
+    </div>
+    <!-- checkbox -->
+    <div class="row mb-3">
+        <label for="gender" class="col-sm-3 col-form-label"></label>
+        <div class="col-sm-9">
+            <div class="form-check ">
+                <input type="checkbox" id="firstCheckBox" class="form-check-input" name="terms" [(ngModel)]="terms" required>
+                <label for="firstCheckBox" class="form-check-label">Terms and conditions</label>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+
+            <button class="btn btn-primary float-end" type="submit" [disabled]="!myForm.valid">Save!</button>
+        </div>
+    </div>
+</form>
+<h3>Form Value</h3>
+<pre>
+    {{myForm.value | json}}
+</pre>

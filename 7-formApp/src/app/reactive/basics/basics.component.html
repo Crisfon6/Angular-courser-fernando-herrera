@@ -1,0 +1,48 @@
+<h2>Reactive: Basics</h2>
+<hr>
+<div class="row">
+    <div class="col">
+        <form autocomplete="off" [formGroup]="myForm" (ngSubmit)="save()">
+            <div class="mb-3 row">
+                <label class="col-sm-3 col-form-label">Product</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" placeholder="Product name" name="product" formControlName="name">
+                    <span class="form-text text-danger" *ngIf="validField('name')">Should be of
+                        3 words
+                    </span>
+
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label class="col-sm-3 col-form-label">Price</label>
+                <div class="col-sm-9">
+                    <input type="number" class="form-control" placeholder="Product price" name="price" min=0 formControlName="price">
+                    <span class="form-text text-danger" *ngIf="validField('price')">The price must be greater than 0
+                    </span>
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label class="col-sm-3 col-form-label">Exists</label>
+                <div class="col-sm-9">
+                    <input type="number" class="form-control" placeholder="Product exists" name="exists" formControlName="exists">
+                    <span class="form-text text-danger" *ngIf="validField('exists')">The price must be greater than 0
+                    </span>
+                </div>
+            </div>
+            <div class=" row ">
+                <div class="col ">
+                    <button type="submit " class="btn btn-primary float-end ">Save</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div>
+
+    <pre>Valid: {{myForm.valid}}</pre>
+    <pre>Pristine: {{myForm.pristine}}</pre>
+    <pre>Touched: {{myForm.touched}}</pre>
+    <pre>Value : {{myForm.value | json}}</pre>
+
+
+</div>

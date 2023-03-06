@@ -1,0 +1,62 @@
+<h2>Reactive: <span>Switches</span></h2>
+<hr>
+
+
+<form [formGroup]="myForm" (ngSubmit)="save()">
+    <!-- radios -->
+    <div class="row mb-3">
+        <label for="gender" class="col-sm-3 col-form-label">Gender</label>
+        <div class="col-sm-9">
+            <div class="form-check">
+                <input class="form-check-input" type="radio" id="male" formControlName="gender" value="M" required>
+                <label for="male" class="form-check-label">
+                    Male
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" id="female" value="F" formControlName="gender" required>
+                <label for="female" class="form-check-label">
+                    Female
+                </label>
+            </div>
+        </div>
+    </div>
+    <!-- switch -->
+    <div class="row mb-3">
+        <label for="gender" class="col-sm-3 col-form-label">Notifications</label>
+        <div class="col-sm-9">
+            <div class="form-check form-switch">
+                <input type="checkbox" id="firstSwitch" class="form-check-input" formControlName="notifications">
+                <label for="firstSwitch" class="form-check-label">Allow send notifications</label>
+            </div>
+        </div>
+    </div>
+    <!-- checkbox -->
+    <div class="row mb-3">
+        <label for="gender" class="col-sm-3 col-form-label"></label>
+        <div class="col-sm-9">
+            <div class="form-check ">
+                <input type="checkbox" id="firstCheckBox" class="form-check-input" name="terms" required formControlName="terms">
+                <label for="firstCheckBox" class="form-check-label">Terms and conditions</label>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+
+            <button class="btn btn-primary float-end" type="submit">Save!</button>
+        </div>
+    </div>
+</form>
+
+<h3>Form Value</h3>
+<pre>
+    {{myForm.value | json}}
+</pre>
+<p>
+    {{myForm.valid}}
+</p>
+<h3>Person</h3>
+<pre>
+    {{person | json}}
+</pre>
