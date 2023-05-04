@@ -1,0 +1,17 @@
+<h1>Social Network Report</h1>
+<hr>
+
+<div class="row">
+    <div class="col">
+        <div class="alert alert-info" *ngIf="loadingData; else chart">
+            Loading...
+        </div>
+        <ng-template #chart>
+            <canvas baseChart class="chart" [data]="doughnutChartData" [type]="doughnutChartType">
+            </canvas>
+            <span> Information in millions of users</span>
+        </ng-template>
+
+    </div>
+
+</div>
