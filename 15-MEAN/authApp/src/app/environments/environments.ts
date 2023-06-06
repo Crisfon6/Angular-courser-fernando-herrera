@@ -1,4 +1,3 @@
 export const environments = {
-  production:false,
-  baseUrl:'http://localhost:3000'
+  baseUrl:'https://nest-backend-auth.up.railway.app'
 }
