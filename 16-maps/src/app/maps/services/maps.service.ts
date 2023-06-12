@@ -1,0 +1,105 @@
+import { Injectable, inject } from '@angular/core';
+import {AnySourceData, LngLat, LngLatBounds, Map, Marker, Popup} from 'mapbox-gl';
+import { Feature } from '../interfaces';
+import { DirectionsAPIClient } from '../api';
+import { DirectionsResponse, Route } from '../interfaces/directions.interfaces';
+@Injectable({
+  providedIn: 'root'
+})
+export class MapsService {
+  private directionsApi = inject(DirectionsAPIClient);
+  private map?: Map;
+  private markers: Marker[]=[];
+
+  get isMapReady(){
+    return !!this.map;
+  }
+  setMap(map:Map){
+    this.map = map;
+  }
+  flyTo(coords:LngLat){
+    if(!this.isMapReady) throw Error("The map isn't initialized");
+    this.map?.flyTo({center:coords,zoom:14});
+  }
+  createMarkersFromPlaces(places:Feature[],userLocation:[number,number]){
+    if(!this.map) throw Error('Map not inizializated');
+    this.markers.forEach(marker=>marker.remove());
+    const newMarkers = [];
+    for (const place of places) {
+      const [lng,lat] = place.center;
+      const popup = new Popup()
+      .setHTML(`
+      <h6>${place.text}</h6>
+      <span>${place.place_name}</span>
+      `);
+      const newMarker = new Marker()
+      .setLngLat([lng,lat])
+      .setPopup(popup)
+      .addTo(this.map);
+      newMarkers.push(newMarker);
+    }
+    this.markers= newMarkers;
+    if(places.length===0) return;
+
+    //map limits
+    const bounds = new LngLatBounds();
+    newMarkers.forEach(marker=>bounds.extend(marker.getLngLat()));
+    bounds.extend(userLocation);
+    this.map.fitBounds(bounds,{padding:200});
+  }
+  getRouteBetweenTwoPoints(start:[number,number],end:[number,number])
+  {
+    this.directionsApi.get<DirectionsResponse>(`/${start.join(',')};${end.join(',')}`)
+    .subscribe(resp=>this.drawPoliline(resp.routes[0]));
+
+  }
+  private drawPoliline(route:Route){
+    console.log({kms: route.distance/1000,duration: route.duration/60});
+    if(!this.map) throw Error('Map no initialized');
+    const coords =route.geometry.coordinates;
+    const start = coords[0] as [number,number];
+    const bounds = new LngLatBounds();
+    coords.forEach(([lng,lat])=>{
+      bounds.extend([lng,lat]);
+    });
+    this.map?.fitBounds(bounds,{
+      padding:200
+    });
+    //Polyline
+const sourceData : AnySourceData = {
+  type:'geojson',
+  data: {
+    type: 'FeatureCollection',
+    features: [
+      {
+        type:'Feature',
+        properties:{},
+        geometry:{
+          type:'LineString',
+          coordinates:coords
+        }
+      }
+    ]
+  }
+};
+if(this.map.getLayer('RouteString')){
+  this.map.removeLayer('RouteString');
+  this.map.removeSource('RouteString');
+}
+this.map.addSource('RouteString',sourceData);
+this.map.addLayer({
+  id: 'RouteString',
+  type:'line',
+  source:'RouteString',
+  layout:{
+    'line-cap':'round',
+    'line-join':'round'
+  },
+  paint:{
+    'line-color':'black',
+    "line-width":3
+  }
+})
+  }
+  constructor() { }
+}
